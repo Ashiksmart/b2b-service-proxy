@@ -1,0 +1,60 @@
+
+//Ui Side Axios Interceptor: 
+
+import axios from 'axios'
+
+// Request interceptor
+axios.interceptors.request.use(
+  config => {
+    // Modify the request config if needed (e.g., add headers)
+    console.log('Request Interceptor:', config);
+    return config;
+  },
+  error => {
+    // Handle request error
+    console.error('Request Error Interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor
+axios.interceptors.response.use(
+  response => {
+    // Modify the response data if needed
+    console.log('Response Interceptor:', response.data);
+    return response;
+  },
+  error => {
+    // Handle response error
+    console.error('Response Error Interceptor:', error);
+    return Promise.reject(error);
+  }
+);
+
+
+
+// Proxy Interceptor : 
+
+const onError = function (error) {
+  return error
+}
+
+const onResponse = function (response) {
+  return response
+}
+
+export default {
+  onResponse,
+  onError
+}
+
+
+
+// How to Define serviceProxy :
+
+import ServiceProxy from 'service-proxy' // npm module
+import Constants from './constants' // Ui Constants
+import Interceptor from './interceptor' // Proxy Interceptor
+const serviceProxy = new ServiceProxy(Constants, Interceptor)
+
+export default serviceProxy
