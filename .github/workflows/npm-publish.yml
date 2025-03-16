@@ -1,0 +1,31 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - master  # Trigger the workflow on push to the 'main' branch
+  pull_request:
+    branches:
+      - master  # Optionally, trigger on PRs as well
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # Set your desired Node.js version
+
+    - name: Install dependencies
+      run: npm install --legacy-peer-deps
+
+    - name: Publish to npm
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        npm publish
