@@ -1,6 +1,6 @@
 {
   "name": "b2b-service-proxy",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Service Proxy core module.",
   "main": "index.js",
   "scripts": {
